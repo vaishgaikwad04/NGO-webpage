@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+:root {
+  --egoGreen: #339249;
+  --egoOrange: #FF7F50;
+  --egoMuted: #6B7280;
+}
+
+/* Optional: utility classes for quick use */
+.text-egoGreen { color: var(--egoGreen); }
+.bg-egoGreen { background-color: var(--egoGreen); }
+
+.text-egoOrange { color: var(--egoOrange); }
+.bg-egoOrange { background-color: var(--egoOrange); }
+
+.text-egoMuted { color: var(--egoMuted); }
+.bg-egoMuted { background-color: var(--egoMuted); }
