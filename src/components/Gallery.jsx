@@ -30,9 +30,9 @@ export default function Gallery() {
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 3 } },
-      { breakpoint: 768, settings: { slidesToShow: 2 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 640, settings: { slidesToShow: 1 } },
     ],
   };
 
@@ -41,7 +41,7 @@ export default function Gallery() {
   return (
     <section
       id="gallery"
-      className="relative container mx-auto px-6 py-20 bg-gradient-to-br from-amber-50 via-white to-green-50"
+      className="relative container mx-auto px-4 sm:px-6 py-16 sm:py-20 bg-gradient-to-br from-amber-50 via-white to-green-50"
     >
       {/* Header */}
       <div className="text-center mb-10">
@@ -64,21 +64,20 @@ export default function Gallery() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1, duration: 0.5 }}
-            className="px-3"
+            className="px-2 sm:px-3"
           >
             <div
               className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
               onClick={() => setPopup({ open: true, img: img.src })}
-              role="button"
-              aria-label={`View larger version of image: ${img.caption}`}
             >
               <img
                 src={img.src}
                 alt={img.caption}
-                className="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500"
+                className="w-full h-[55vh] sm:h-[45vh] md:h-[40vh] lg:h-[35vh] object-cover transform group-hover:scale-105 transition duration-500"
               />
+
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                <p className="text-white text-lg font-semibold px-4 text-center">
+                <p className="text-white text-base sm:text-lg font-semibold px-3 text-center">
                   {img.caption}
                 </p>
               </div>
@@ -91,13 +90,11 @@ export default function Gallery() {
       <AnimatePresence>
         {popup.open && (
           <motion.div
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClosePopup}
-            role="dialog"
-            aria-labelledby="popupImage"
           >
             <motion.div
               className="relative"
@@ -109,16 +106,12 @@ export default function Gallery() {
               <motion.img
                 src={popup.img}
                 alt="popup"
-                className="max-w-3xl max-h-[80vh] object-contain rounded-xl shadow-2xl"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                transition={{ duration: 0.4 }}
+                className="max-w-[90vw] max-h-[80vh] sm:max-w-2xl md:max-w-3xl object-contain rounded-xl shadow-2xl"
               />
+
               <button
                 onClick={handleClosePopup}
-                className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-lg"
-                aria-label="Close popup"
+                className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-lg text-xl"
               >
                 &times;
               </button>
