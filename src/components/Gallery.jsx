@@ -32,26 +32,32 @@ export default function Gallery() {
     responsive: [
       { breakpoint: 1280, settings: { slidesToShow: 3 } },
       { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          dots: true,
+          arrows: false,
+          centerMode: false,
+        },
+      },
     ],
   };
-
-  const handleClosePopup = () => setPopup({ open: false, img: "" });
 
   return (
     <section
       id="gallery"
-      className="relative container mx-auto px-4 sm:px-6 py-16 sm:py-20 bg-gradient-to-br from-amber-50 via-white to-green-50"
+      className="relative container mx-auto px-4 py-10 sm:py-16 bg-gradient-to-br from-amber-50 via-white to-green-50"
     >
       {/* Header */}
-      <div className="text-center mb-10">
+      <div className="text-center mb-8 sm:mb-10">
         <h3 className="text-egoGreen font-semibold uppercase tracking-wide">
           Gallery
         </h3>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-2">
           Moments of Joy
         </h2>
-        <p className="mt-3 text-gray-600 max-w-xl mx-auto">
+        <p className="mt-3 text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
           Every photo tells a story of hope, compassion, and change.
         </p>
       </div>
@@ -59,30 +65,25 @@ export default function Gallery() {
       {/* Slider */}
       <Slider {...settings}>
         {images.map((img, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1, duration: 0.5 }}
-            className="px-2 sm:px-3"
-          >
+          <div key={i} className="px-1 sm:px-3">
             <div
-              className="relative group overflow-hidden rounded-xl shadow-lg cursor-pointer"
+              className="relative group overflow-hidden rounded-xl shadow-md sm:shadow-lg cursor-pointer"
               onClick={() => setPopup({ open: true, img: img.src })}
             >
+              {/* FIXED MOBILE HEIGHT */}
               <img
                 src={img.src}
                 alt={img.caption}
-                className="w-full h-[55vh] sm:h-[45vh] md:h-[40vh] lg:h-[35vh] object-cover transform group-hover:scale-105 transition duration-500"
+                className="w-full h-[220px] xs:h-[260px] sm:h-[300px] md:h-[350px] object-cover transition-transform duration-500 group-hover:scale-105"
               />
 
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                <p className="text-white text-base sm:text-lg font-semibold px-3 text-center">
+                <p className="text-white text-sm sm:text-lg font-semibold px-3 text-center">
                   {img.caption}
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </Slider>
 
@@ -90,28 +91,29 @@ export default function Gallery() {
       <AnimatePresence>
         {popup.open && (
           <motion.div
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={handleClosePopup}
+            onClick={() => setPopup({ open: false, img: "" })}
           >
             <motion.div
               className="relative"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.3 }}
             >
-              <motion.img
+              {/* FIXED MOBILE POPUP SIZE */}
+              <img
                 src={popup.img}
+                className="max-w-[92vw] max-h-[80vh] object-contain rounded-xl"
                 alt="popup"
-                className="max-w-[90vw] max-h-[80vh] sm:max-w-2xl md:max-w-3xl object-contain rounded-xl shadow-2xl"
               />
 
               <button
-                onClick={handleClosePopup}
-                className="absolute top-4 right-4 bg-white text-black p-2 rounded-full shadow-lg text-xl"
+                onClick={() => setPopup({ open: false, img: "" })}
+                className="absolute top-3 right-3 bg-white text-black p-2 rounded-full shadow-md text-xl"
               >
                 &times;
               </button>
